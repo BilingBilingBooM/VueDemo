@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8" />
+		<title></title>
+		<!-- Demo展示采用Uikit框架 -->
+		<!-- Begin Uikit Framework-->
+		<!-- Begin UiKit Css-->
+		<link rel="stylesheet" href="css/uikit.css" />
+		<!-- End UiKit Css-->
+
+		<!-- Begin UiKit Js-->
+		<!-- Uikit Js-->
+		<script src="js/uikit.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/uikit-icons.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- End UiKit Js-->
+		<!-- End UiKit Framework-->
+		<!-- Begin Vue Js -->
+		<script type="text/javascript" src="js/vue.js"></script>
+		<!-- End Vue Js-->
+	</head>
+	<style type="text/css">
+
+	</style>
+
+	<body>
+
+		<div id="testdemo" class="uk-card uk-card-default uk-width-1-4@m uk-align-center uk-margin-large-top">
+			<div class="uk-card-header">
+				<div class="uk-grid-small uk-flex-middle" uk-grid>
+					<div class="uk-width-expand">
+						<h3 class="uk-card-title uk-margin-remove-bottom">表单输入</h3>
+						<p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">July 24, 2018</time></p>
+					</div>
+				</div>
+			</div>
+			<div class="uk-card-body">
+				<form class="uk-form uk-margin-large">
+
+					<div class="uk-margin">
+						<label class="uk-form-label" >手机号 </label>
+						<div class="uk-form-controls">
+							<input class="uk-input" id="form-horizontal-text" 
+								v-bind:class="{ 'uk-form-danger' : rel.trel }"
+								 v-model="tel"  type="text" placeholder="请输入手机号">
+							<span class="uk-label uk-label-danger"   >{{ terr }}</span>
+						</div>
+					</div>
+
+					<div class="uk-margin">
+						<label class="uk-form-label">留言</label>
+						<div class="uk-form-controls">
+							<textarea class="uk-textarea " rows="4"
+								 v-model="cont" placeholder="请说明自己的问题（仅输入数字或英文字母会被判错）"></textarea>
+							<span class="uk-label uk-label-danger " >{{ cerr }}</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="uk-card-footer">
+				<button class="uk-button uk-button-primary uk-width-1-1\@l" v-on:click="relcheck" >提交</button>
+				<a href="#" class=" uk-button-text">Email: dingxin199632@gmail.com</a>
+				<hr />
+				<span class="uk-label  uk-label-success">如有问题请联系QQ756258013</span>
+			</div>
+			
+					
+			
+		</div>
+
+		
+		<script>
+			/*对输入框中的字符串进行检查，防止SQL注入，站内信被发送辣鸡信息*/
+			var serverURL ='www.test.com';
+			var telcheck,pwdcheck,contchek;
+			telcheck = /0?(13|14|15|17|18|19)[0-9]{9}/;
+			contcheck = /[\u4e00-\u9fa5]/;
+			
+			var Test = new Vue({
+				el:'#testdemo',
+				data:{
+					tel:'',
+					cont:'',
+					terr:'',
+					cerr:'',
+					rel:{
+						trel:false,
+						conrel:false
+						}
+				},
+				watch: function(){
+					
+				},
+
+				methods:{
+					relcheck:function(){
+						if(telcheck.test(this.tel)){
+							this.terr="";
+							this.rel.trel=false;
+						}else{
+							this.rel.trel=true;
+							this.terr="手机号错误";
+						}
+						
+						if(contcheck.test(this.cont)){
+							this.cerr="";
+							this.rel.conrel=false;
+						}else{
+							this.rel.conrel=true;
+							this.cerr="您的留言信息不符合规范";
+						}
+						if(telcheck.test(this.tel)&&contcheck.test(this.cont)){
+							alert("Success")
+						}
+					}
+				}
+				
+			})
+		</script>
+		
+
+	</body>
+
+</html>
